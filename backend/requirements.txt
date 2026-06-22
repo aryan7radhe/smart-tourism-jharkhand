@@ -1,0 +1,26 @@
+flask
+flask-cors
+python-dotenv
+requests
+gunicorn
+
+# 1. GET /api/places/search        → search by name
+# 2. POST /api/itinerary           → AI trip planner (main feature)
+# 3. GET /api/weather              → weather by district
+
+
+# 4. Setup Vite project
+# 5. Home page with places listing
+# 6. Place detail page
+# 7. Trip planner form → calls itinerary API
+
+
+# 8. Move PLACES data to a JSON file
+# 9. Add more Jharkhand places (20+)
+# 10. Deploy backend on Render, frontend on Vercel
+
+
+
+# 1. Header        → title
+# 2. Places list   → show all Jharkhand places
+# 3. Trip planner  → form to generate AI itinerary
