@@ -2,6 +2,7 @@ flask
 flask-cors
 python-dotenv
 requests
+groq
 gunicorn
 
 # 1. GET /api/places/search        → search by name
