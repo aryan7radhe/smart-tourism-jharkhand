@@ -34,6 +34,86 @@ PLACES = [
     "district": "Ranchi",
     "description": "A magnificent waterfall on the Kanchi river.",
     "best_season": "July to October"
+},
+{
+    "id": 6,
+    "name": "Pahari Mandir",
+    "category": "religious",
+    "district": "Ranchi",
+    "description": "A hilltop temple dedicated to Lord Shiva with panoramic city views.",
+    "best_season": "Year round"
+},
+{
+    "id": 7,
+    "name": "Tagore Hill",
+    "category": "nature",
+    "district": "Ranchi",
+    "description": "A scenic hill where Rabindranath Tagore stayed, offering beautiful views.",
+    "best_season": "October to March"
+},
+{
+    "id": 8,
+    "name": "Betla National Park",
+    "category": "wildlife",
+    "district": "Latehar",
+    "description": "One of the first national parks in India with tigers and elephants.",
+    "best_season": "November to February"
+},
+{
+    "id": 9,
+    "name": "Netarhat",
+    "category": "nature",
+    "district": "Latehar",
+    "description": "Queen of Chotanagpur, famous for sunrise and sunset views.",
+    "best_season": "October to February"
+},
+{
+    "id": 10,
+    "name": "Jubilee Lake",
+    "category": "nature",
+    "district": "Jamshedpur",
+    "description": "A beautiful artificial lake in the heart of Jamshedpur city.",
+    "best_season": "Year round"
+},
+{
+    "id": 11,
+    "name": "Dimna Lake",
+    "category": "nature",
+    "district": "Jamshedpur",
+    "description": "A picturesque reservoir surrounded by hills, perfect for picnics.",
+    "best_season": "October to March"
+},
+{
+    "id": 12,
+    "name": "Baidyanath Temple",
+    "category": "religious",
+    "district": "Deoghar",
+    "description": "One of the 12 Jyotirlingas, one of the most sacred Shiva temples in India.",
+    "best_season": "Year round"
+},
+{
+    "id": 13,
+    "name": "Usri Falls",
+    "category": "waterfall",
+    "district": "Giridih",
+    "description": "A beautiful waterfall near Giridih surrounded by dense forest.",
+    "best_season": "July to October"
+},
+{
+    "id": 14,
+    "name": "Parasnath Hill",
+    "category": "religious",
+    "district": "Giridih",
+    "description": "The highest peak in Jharkhand, sacred to Jains with 24 temples.",
+    "best_season": "October to March"
+},
+{
+    "id": 15,
+    "name": "Lodh Falls",
+    "category": "waterfall",
+    "district": "Latehar",
+    "description": "The highest waterfall in Jharkhand at 143 meters, stunning and remote.",
+    "best_season": "July to October"
 }
 ]
 

@@ -8,6 +8,7 @@ function App() {
   const [days, setDays] = useState(2)
   const [itinerary, setItinerary] = useState("")
   const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/api/places/")
@@ -29,6 +30,10 @@ function App() {
       })
   }
 
+  const filteredPlaces = places.filter(p =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <div className="container">
       <div className="header">
@@ -36,16 +41,24 @@ function App() {
         <p>Discover the beauty of Jharkhand</p>
       </div>
 
-      <h2 style={{marginBottom: "20px"}}>Places to Visit</h2>
-      <div className="places-grid">
-        {places.map(place => (
-          <div className="place-card" key={place.id}>
-            <h3>{place.name}</h3>
-            <p className="district">{place.district}</p>
-            <p>{place.description}</p>
-          </div>
-        ))}
-      </div>
+      <h2 className="section-title">Places to Visit</h2>
+      <input
+        type="text"
+        placeholder="Search places..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        className="search-input"
+      />
+     <div className="places-grid">
+  {filteredPlaces.map(place => (
+    <div className="place-card" key={place.id}>
+      <span className={`category-badge badge-${place.category}`}>{place.category}</span>
+      <h3>{place.name}</h3>
+      <p className="district">{place.district}</p>
+      <p>{place.description}</p>
+    </div>
+  ))}
+</div>
 
       <div className="planner">
         <h2>Plan Your Trip</h2>
@@ -67,9 +80,9 @@ function App() {
 
         {itinerary && (
           <div className="itinerary">
-  <h3>Your Itinerary</h3>
-  <ReactMarkdown>{itinerary}</ReactMarkdown>
-</div>
+            <h3>Your Itinerary</h3>
+            <ReactMarkdown>{itinerary}</ReactMarkdown>
+          </div>
         )}
       </div>
     </div>
