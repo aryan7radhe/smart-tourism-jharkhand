@@ -4,6 +4,9 @@ python-dotenv
 requests
 groq
 gunicorn
+scikit-learn
+pymongo
+dnspython
 
 # 1. GET /api/places/search        → search by name
 # 2. POST /api/itinerary           → AI trip planner (main feature)
