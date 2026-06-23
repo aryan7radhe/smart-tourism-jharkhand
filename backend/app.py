@@ -4,7 +4,7 @@ from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
-CORS(app)
+CORS(app, origins=["https://smart-tourism-jharkhand.vercel.app", "http://localhost:5173"])
 
 from routes.places import places_bp
 from routes.itinerary import itinerary_bp
@@ -15,7 +15,6 @@ app.register_blueprint(places_bp, url_prefix="/api/places")
 app.register_blueprint(itinerary_bp, url_prefix="/api/itinerary")
 app.register_blueprint(weather_bp, url_prefix="/api/weather")
 app.register_blueprint(recommend_bp, url_prefix="/api/recommend")
-
 
 @app.route("/")
 def home():
