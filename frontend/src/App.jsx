@@ -2,6 +2,8 @@ import ReactMarkdown from "react-markdown"
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
 
+const BASE_URL = "https://smart-tourism-jharkhand.onrender.com"
+
 function App() {
   const [places, setPlaces] = useState([])
   const [district, setDistrict] = useState("")
@@ -15,14 +17,14 @@ function App() {
   const sessionId = useRef(Math.random().toString(36).substring(7))
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/places/")
+    fetch(`${BASE_URL}/api/places/`)
       .then(res => res.json())
       .then(data => setPlaces(data.data))
   }, [])
 
   function generateItinerary() {
     setLoading(true)
-    fetch("http://127.0.0.1:5000/api/itinerary/", {
+    fetch(`${BASE_URL}/api/itinerary/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ district: district, days: days })
@@ -36,7 +38,7 @@ function App() {
 
   function getWeather() {
     setWeatherLoading(true)
-    fetch(`http://127.0.0.1:5000/api/weather/?district=${district}`)
+    fetch(`${BASE_URL}/api/weather/?district=${district}`)
       .then(res => res.json())
       .then(data => {
         setWeather(data.data)
@@ -45,18 +47,15 @@ function App() {
   }
 
   function trackClick(placeId) {
-    fetch("http://127.0.0.1:5000/api/recommend/click", {
+    fetch(`${BASE_URL}/api/recommend/click`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ place_id: placeId, session_id: sessionId.current })
     })
     .then(() => {
-      fetch(`http://127.0.0.1:5000/api/recommend/?session_id=${sessionId.current}`)
+      fetch(`${BASE_URL}/api/recommend/?session_id=${sessionId.current}`)
         .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          setRecommendations(data.data)
-        })
+        .then(data => setRecommendations(data.data))
     })
   }
 
