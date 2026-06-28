@@ -4,11 +4,41 @@ import "./App.css"
 
 const BASE_URL = "https://smart-tourism-jharkhand.onrender.com"
 
+function ItineraryTimeline({ itinerary }) {
+  const timeSlots = [
+    { key: "morning", emoji: "🌅", label: "Morning" },
+    { key: "afternoon", emoji: "☀️", label: "Afternoon" },
+    { key: "evening", emoji: "🌙", label: "Evening" }
+  ]
+
+  return (
+    <div className="timeline">
+      {itinerary.map((day, index) => (
+        <div key={index} className="timeline-day">
+          <div className="day-header">Day {day.day}</div>
+          <div className="timeline-slots">
+            {timeSlots.map((slot, i) => (
+              <div key={i} className="timeline-slot">
+                <div className="slot-icon">{slot.emoji}</div>
+                <div className="slot-line"></div>
+                <div className="slot-card">
+                  <strong>{slot.label}</strong>
+                  <p>{day[slot.key]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function App() {
   const [places, setPlaces] = useState([])
   const [district, setDistrict] = useState("")
   const [days, setDays] = useState(2)
-  const [itinerary, setItinerary] = useState("")
+  const [itinerary, setItinerary] = useState(null)
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState("")
   const [weather, setWeather] = useState(null)
@@ -139,8 +169,11 @@ function App() {
 
         {itinerary && (
           <div className="itinerary">
-            <h3>Your Itinerary</h3>
-            <ReactMarkdown>{itinerary}</ReactMarkdown>
+            <h3>Your Itinerary for {district}</h3>
+            {Array.isArray(itinerary)
+              ? <ItineraryTimeline itinerary={itinerary} />
+              : <ReactMarkdown>{itinerary}</ReactMarkdown>
+            }
           </div>
         )}
       </div>
