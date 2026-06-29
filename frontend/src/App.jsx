@@ -17,16 +17,26 @@ function ItineraryTimeline({ itinerary }) {
         <div key={index} className="timeline-day">
           <div className="day-header">Day {day.day}</div>
           <div className="timeline-slots">
-            {timeSlots.map((slot, i) => (
-              <div key={i} className="timeline-slot">
-                <div className="slot-icon">{slot.emoji}</div>
-                <div className="slot-line"></div>
-                <div className="slot-card">
-                  <strong>{slot.label}</strong>
-                  <p>{day[slot.key]}</p>
+            {timeSlots.map((slot, i) => {
+              const slotData = day[slot.key]
+              const activity = typeof slotData === "object" ? slotData.activity : slotData
+              const time = typeof slotData === "object" ? slotData.time : ""
+              const reason = typeof slotData === "object" ? slotData.reason : ""
+              const travel_tip = typeof slotData === "object" ? slotData.travel_tip : ""
+
+              return (
+                <div key={i} className="timeline-slot">
+                  <div className="slot-icon">{slot.emoji}</div>
+                  <div className="slot-card">
+                    <strong>{slot.label}</strong>
+                    {time && <span className="slot-time">🕐 {time}</span>}
+                    <p>{activity}</p>
+                    {reason && <p className="slot-reason">💡 {reason}</p>}
+                    {travel_tip && <p className="slot-tip">🚗 {travel_tip}</p>}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       ))}
@@ -96,8 +106,15 @@ function App() {
   return (
     <div className="container">
       <div className="header">
-        <h1>Smart Tourism Jharkhand</h1>
+        <h1>Smart Tourism <span>Jharkhand</span></h1>
         <p>Discover the beauty of Jharkhand</p>
+        <div className="header-badges">
+          <span className="header-badge">🌊 Waterfalls</span>
+          <span className="header-badge">🐯 Wildlife</span>
+          <span className="header-badge">⛩️ Temples</span>
+          <span className="header-badge">🌿 Nature</span>
+          <span className="header-badge">🤖 AI Powered</span>
+        </div>
       </div>
 
       <h2 className="section-title">Places to Visit</h2>
@@ -149,7 +166,7 @@ function App() {
           value={days}
           onChange={e => setDays(e.target.value)}
         />
-        <button onClick={getWeather} style={{marginBottom: "15px", backgroundColor: "#1e40af"}}>
+        <button onClick={getWeather} style={{marginBottom: "15px"}}>
           {weatherLoading ? "Loading..." : "Check Weather"}
         </button>
 
