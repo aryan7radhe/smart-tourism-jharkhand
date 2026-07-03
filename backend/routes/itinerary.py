@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 import os
 import json
 from groq import Groq
+from utils.cache import get_cache,set_cache
 
 itinerary_bp = Blueprint("itinerary", __name__)
 
@@ -17,8 +18,16 @@ def generate_itinerary():
     days = data.get("days", 2)
     interests = data.get("interests", [])
 
+    
     if not district:
         return jsonify({"success": False, "message": "District is required"}), 400
+
+    # Check cache first
+    cache_key = f"itinerary:{district}:{days}"
+    cached = get_cache(cache_key)
+    if cached:
+     return jsonify({"success": True, "district": district, "days": days, "itinerary": json.loads(cached), "cached": True})
+
 
     interests_str = ", ".join(interests) if interests else "general sightseeing"
 
@@ -82,10 +91,12 @@ Respond with ONLY a JSON array. No text before or after. No markdown. Just raw J
 
     try:
         itinerary_data = json.loads(raw)
+        set_cache(cache_key, json.dumps(itinerary_data), expire_seconds=86400)
         return jsonify({"success": True, "district": district, "days": days, "itinerary": itinerary_data})
     except Exception as e:
         try:
             itinerary_data = json.loads(json.loads(raw))
+            set_cache(cache_key, json.dumps(itinerary_data), expire_seconds=86400)
             return jsonify({"success": True, "district": district, "days": days, "itinerary": itinerary_data})
         except:
             return jsonify({"success": True, "district": district, "days": days, "itinerary": raw, "raw": True, "error": str(e)})
