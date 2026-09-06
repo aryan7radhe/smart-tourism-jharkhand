@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react"
 import "./App.css"
 
 const BASE_URL = "https://smart-tourism-jharkhand.onrender.com"
+// http://127.0.0.1:5000
+// https://smart-tourism-jharkhand.onrender.com
 
 function ItineraryTimeline({ itinerary }) {
   const timeSlots = [
@@ -62,19 +64,59 @@ function App() {
       .then(data => setPlaces(data.data))
   }, [])
 
-  function generateItinerary() {
-    setLoading(true)
-    fetch(`${BASE_URL}/api/itinerary/`, {
+  // function generateItinerary() {
+  //   setLoading(true)
+  //   fetch(`${BASE_URL}/api/itinerary/`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ district: district, days: days })
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setItinerary(data.itinerary)
+  //       setLoading(false)
+  //     })
+  // }
+
+
+  async function generateItinerary() {
+  setLoading(true)
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/itinerary/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ district: district, days: days })
-    })
-      .then(res => res.json())
-      .then(data => {
-        setItinerary(data.itinerary)
-        setLoading(false)
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        district: district,
+        days: Number(days)
       })
+    })
+
+    console.log("Status:", response.status)
+
+    const data = await response.json()
+
+    console.log("Itinerary response:", data)
+
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to generate itinerary")
+    }
+
+    if (!data.itinerary) {
+      throw new Error("No itinerary returned from server")
+    }
+
+    setItinerary(data.itinerary)
+
+  } catch (error) {
+    console.error("ITINERARY ERROR:", error)
+    alert(`Failed to generate itinerary: ${error.message}`)
+  } finally {
+    setLoading(false)
   }
+}
 
   function getWeather() {
     setWeatherLoading(true)
@@ -141,12 +183,21 @@ function App() {
           <h2 className="section-title">Recommended For You</h2>
           <div className="places-grid">
             {recommendations.map(place => (
-              <div className="place-card" key={place.id}>
-                <span className={`category-badge badge-${place.category}`}>{place.category}</span>
-                <h3>{place.name}</h3>
-                <p className="district">{place.district}</p>
-                <p>{place.description}</p>
-              </div>
+              // <div className="place-card" key={place.id}>
+
+                  <div className="place-card" key={place.id} onClick={() => trackClick(place.id)} style={{cursor: "pointer"}}>
+                  <img src={place.image_url} alt={place.name} className="place-image" />
+                  <span className={`category-badge badge-${place.category}`}>{place.category}</span>
+                  <h3>{place.name}</h3>
+                  <p className="district">{place.district}</p>
+                  <p>{place.description}</p>
+                </div>
+                
+              //   <span className={`category-badge badge-${place.category}`}>{place.category}</span>
+              //   <h3>{place.name}</h3>
+              //   <p className="district">{place.district}</p>
+              //   <p>{place.description}</p>
+              // </div>
             ))}
           </div>
         </div>

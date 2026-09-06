@@ -70,7 +70,7 @@ Respond with ONLY a JSON array. No text before or after. No markdown. Just raw J
 ]"""
 
     chat = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-20b",
         messages=[
             {"role": "system", "content": "You are a travel guide. Always respond with valid JSON only, no markdown, no extra text."},
             {"role": "user", "content": prompt}

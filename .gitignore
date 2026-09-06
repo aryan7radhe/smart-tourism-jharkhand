@@ -1,5 +1,7 @@
-node_modules/
-venv/
 .env
+backend/.env
+venv/
 __pycache__/
-dist/
+**/__pycache__/
+node_modules/
+.DS_Store

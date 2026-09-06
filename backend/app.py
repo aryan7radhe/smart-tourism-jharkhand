@@ -4,7 +4,12 @@ from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
-CORS(app, origins=["https://smart-tourism-jharkhand.vercel.app", "http://localhost:5173"])
+# CORS(app, origins=["https://smart-tourism-jharkhand.vercel.app", "http://localhost:5173"])
+CORS(app, origins=[
+    "https://smart-tourism-jharkhand.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+])
 
 from routes.places import places_bp
 from routes.itinerary import itinerary_bp
