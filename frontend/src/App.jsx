@@ -170,6 +170,7 @@ function App() {
       <div className="places-grid">
         {filteredPlaces.map(place => (
           <div className="place-card" key={place.id} onClick={() => trackClick(place.id)} style={{cursor: "pointer"}}>
+            <img src={place.image_url} alt={place.name} className="place-image" />
             <span className={`category-badge badge-${place.category}`}>{place.category}</span>
             <h3>{place.name}</h3>
             <p className="district">{place.district}</p>
